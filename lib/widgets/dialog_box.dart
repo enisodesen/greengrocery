@@ -26,7 +26,7 @@ class DialogBox extends StatelessWidget {
                 prefixIcon: Icons.add_card),
             CustomTextField(
                 controller: productAmountController,
-                text: 'Enter the amount',
+                text: 'Enter the amount (kg)',
                 prefixIcon: Icons.add,
                 keyboardType: TextInputType.number),
             const SizedBox(

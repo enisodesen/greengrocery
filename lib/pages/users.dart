@@ -28,7 +28,7 @@ class _UsersState extends State<Users> {
         itemCount: _users.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
             child: Slidable(
               endActionPane: ActionPane(
                 motion: const StretchMotion(),
@@ -42,21 +42,19 @@ class _UsersState extends State<Users> {
                     },
                     backgroundColor: Colors.grey.shade700,
                     icon: Icons.delete,
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ],
               ),
-              child: Container(
-                color: Colors.yellow.shade200,
-                child: ListTile(
-                  leading: const Icon(Icons.person),
-                  title: Text(
-                    'Name: ${_users[index].name}',
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  subtitle: Text(
-                    'Username: ${_users[index].userName}',
-                    style: const TextStyle(fontSize: 18),
-                  ),
+              child: ListTile(
+                leading: const Icon(Icons.person),
+                title: Text(
+                  'Name: ${_users[index].name}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+                subtitle: Text(
+                  'Username: ${_users[index].userName}',
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),

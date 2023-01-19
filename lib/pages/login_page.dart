@@ -1,10 +1,15 @@
+// ignore_for_file: overridden_fields
+
 import 'package:flutter/material.dart';
+import 'package:greengrocer/hive/user.dart';
 import 'package:greengrocer/pages/products_page.dart';
 import 'package:greengrocer/pages/signup_page.dart';
 import 'package:greengrocer/widgets/custom_text_field.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../widgets/custom_elevated_button.dart';
 import '../widgets/custom_gesture_detector.dart';
+import '../widgets/custom_snackbar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -16,6 +21,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late Box<UserList> _box;
+  late List<UserList> _users;
+
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _box = Hive.box<UserList>('userBox');
+    _users = _box.values.toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +67,13 @@ class _LoginPageState extends State<LoginPage> {
                       height: 10,
                     ),
                     Column(
-                      children: const [
+                      children: [
                         CustomTextField(
+                            controller: _usernameController,
                             prefixIcon: Icons.person,
                             text: 'Enter your username...'),
                         CustomTextField(
+                            controller: _passwordController,
                             prefixIcon: Icons.lock,
                             text: 'Enter your password...'),
                       ],
@@ -68,11 +88,35 @@ class _LoginPageState extends State<LoginPage> {
                             CustomElevatedButton(
                               text: 'LOGIN',
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const ProductPage(),
-                                    ));
+                                final user = _users
+                                    .where((user) =>
+                                        user.userName ==
+                                            _usernameController.text &&
+                                        user.password ==
+                                            _passwordController.text)
+                                    .toList();
+                                if (user.isNotEmpty) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ProductPage(),
+                                      ));
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const CustomSnackBar(
+                                      content: Text(
+                                        'Invalid username or password!',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
                               },
                             ),
                           ],

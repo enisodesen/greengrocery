@@ -24,7 +24,7 @@ class DialogBoxUpDate extends StatelessWidget {
           children: [
             CustomTextField(
                 controller: productAmountController,
-                text: 'Enter the new amount',
+                text: 'Enter the new amount (kg)',
                 prefixIcon: Icons.add,
                 keyboardType: TextInputType.number),
             const SizedBox(

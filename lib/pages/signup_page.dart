@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/hive/user.dart';
-import 'package:greengrocer/pages/users.dart';
+import 'package:greengrocer/widgets/custom_snackbar.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../widgets/custom_elevated_button.dart';
 import '../widgets/custom_gesture_detector.dart';
 import '../widgets/custom_text_field.dart';
+import 'alert_page_about_all_users.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -83,17 +84,31 @@ class SignupPage extends StatelessWidget {
                                 nameController.clear();
                                 usernameController.clear();
                                 passwordController.clear();
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const CustomSnackBar(
+                                    content: Text(
+                                      'Your account has been successfully created!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  ),
+                                );
                               },
                             ),
                           ],
                         ),
                         GestureDetectorButton(
-                          text: 'See the all users..',
+                          text: 'See all users..',
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Users(),
+                                  builder: (context) => AlertPage(),
                                 ));
                           },
                         ),

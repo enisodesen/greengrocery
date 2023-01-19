@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:greengrocer/hive/products.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../widgets/dialob_box_update.dart';
+import '../widgets/dialog_box_update.dart';
 import '../widgets/dialog_box.dart';
 
 class ProductPage extends StatefulWidget {
@@ -68,7 +68,7 @@ class _ProductPageState extends State<ProductPage> {
         itemCount: _products.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
             child: Slidable(
               endActionPane:
                   ActionPane(motion: const StretchMotion(), children: [
@@ -107,6 +107,7 @@ class _ProductPageState extends State<ProductPage> {
         onPressed: addNewProduct,
         child: const Icon(Icons.add),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
