@@ -15,12 +15,14 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   late List<ProductList> _products;
+  late Box<ProductList> _box;
 
   @override
   void initState() {
     super.initState();
 
-    _products = Hive.box<ProductList>('productBox').values.toList();
+    _box = Hive.box<ProductList>('productBox');
+    _products = _box.values.toList();
     final x = Hive.box<ProductList>('productBox').listenable();
     x.addListener(() {
       setState(() {
@@ -81,6 +83,7 @@ class _ProductPageState extends State<ProductPage> {
                   onPressed: (context) {
                     setState(() {
                       _products.removeAt(index);
+                      _box.deleteAt(index);
                     });
                   },
                   backgroundColor: Colors.grey.shade700,

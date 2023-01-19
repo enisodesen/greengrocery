@@ -42,6 +42,7 @@ class DialogBoxUpDate extends StatelessWidget {
                         ProductList(
                             productName: product.productName,
                             amount: int.parse(productAmountController.text)));
+
                     productAmountController.clear();
                     Navigator.of(context).pop();
                   },
